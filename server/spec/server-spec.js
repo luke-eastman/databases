@@ -10,18 +10,33 @@ describe('Persistent Node Chat Server', function() {
 
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
-      user: 'student',
-      password: 'student',
+      user: 'root',
       database: 'chat'
     });
-    dbConnection.connect();
+    dbConnection.connect(console.log('success'));
+
+    dbConnection.query('SET FOREIGN_KEY_CHECKS = 0');
 
     var tablename = 'messages'; // TODO: fill this out
+    dbConnection.query('truncate ' + tablename);
+    // tablename = 'users_friends';
+    // dbConnection.query('truncate ' + tablename, done);
+    // tablename = 'messages';
+    // dbConnection.query('truncate ' + tablename, done);
 
+    dbConnection.query('SET FOREIGN_KEY_CHECKS = 1', done);
+    //tablename = 'rooms_messages';
+    //dbConnection.query('ALTER TABLE messages DROP FOREIGN KEY (user_id), DROP FOREIGN KEY (room_id)', done);
+    //dbConnection.query('truncate table' + tablename, done);
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
-    dbConnection.query('truncate ' + tablename, done);
+    //dbConnection.query('', done);
   });
+
+  // TRUNCATE TABLE messages;
+
+  // ALTER TABLE Orders
+  // DROP FOREIGN KEY FK_PersonOrder;
 
   afterEach(function() {
     dbConnection.end();
