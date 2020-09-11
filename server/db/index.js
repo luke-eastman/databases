@@ -4,12 +4,11 @@ var mysql = require('mysql');
 // You will need to connect with the user "root", no password,
 // and to the database "chat".
 
-exports.connect = () => {
-  connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'chat'
-  });
-  connection.connect();
-};
+var connection = mysql.createConnection({
+  user: 'root',
+  database: 'chat'
+});
+
+connection.connect();
+
+module.exports = connection;
